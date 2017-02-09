@@ -63,13 +63,13 @@
                     </a>
                     <ul class="dropdown-menu messages">
                         <li><a href="#">
-                            <img width="34" height="34" src="images/avatar-male2.png" />我们可以见面吗？我想...</a>
+                            <img width="34" height="34" src="../../images/avatar-male2.png" />我们可以见面吗？我想...</a>
                         </li>
                         <li><a href="#">
-                            <img width="34" height="34" src="images/avatar-female.png" />重要的数据需要分析...</a>
+                            <img width="34" height="34" src="../../images/avatar-female.png" />重要的数据需要分析...</a>
                         </li>
                         <li><a href="#">
-                            <img width="34" height="34" src="images/avatar-male2.png" />Se7en是一款不错的主题。</a>
+                            <img width="34" height="34" src="../../images/avatar-male2.png" />Se7en是一款不错的主题。</a>
                         </li>
                     </ul>
                 </li>

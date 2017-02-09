@@ -18,6 +18,8 @@
 		 dataType:"html",
 		 success:function(msg){
 			 $("#main").html(msg);
+			 /*分页*/
+			 dataTablesOpreation();
 		 }
 	 });
  }
@@ -39,6 +41,7 @@
 						<div class="heading">
 							<i class="icon-bar-chart"></i>牛人交易数据
 						</div>
+						<input id="rs" type="hidden" /><!-- 当前列表页数 -->
 						<div class="widget-content padded clearfix" id="main">
 							
 						</div>

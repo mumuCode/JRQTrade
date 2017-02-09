@@ -23,12 +23,24 @@
 			a.tp as tp,
 			a.sl as sl,
 			a.profit as profit,
-			a.open_time as openTime,
-			a.close_time as closeTime
+			FROM_UNIXTIME(a.open_time) as openTime,
+			FROM_UNIXTIME(a.close_time) as closeTime
 			FROM  ORDER_DATA a
 			LEFT JOIN
 			TRADER_DATA b
 			on a.trader_id = b.uid
-			ORDER BY  state ASC,open_time DESC;
+            <where>
+            <include refid="whereConditionsForOrder"></include>
+            </where>
+			ORDER BY  state ASC,open_time DESC
     </select>
+    
+    <sql id="whereConditionsForOrder"> 
+        <if test="startTime != null and startTime != '' ">
+			and FROM_UNIXTIME(a.open_time) &gt;= str_to_date(#{startTime},'%Y-%m-%d %T')
+		</if>
+		<if test="endTime != null and endTime != '' ">
+		    and FROM_UNIXTIME(a.open_time)  &lt;= str_to_date(#{endTime},'%Y-%m-%d %T')
+		</if>
+    </sql> 
 </mapper>

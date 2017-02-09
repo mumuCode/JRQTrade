@@ -294,29 +294,30 @@
     #   DataTables
     # =============================================================================
     */
-
-    $("#dataTable1").dataTable({
-      "sPaginationType": "full_numbers",
-      aoColumnDefs: [
-        {
-          bSortable: false,
-          aTargets: [0, -1]
-        }
-      ]
-    });
-    $('.table').each(function() {
-      return $(".table #checkAll").click(function() {
-        if ($(".table #checkAll").is(":checked")) {
-          return $(".table input[type=checkbox]").each(function() {
-            return $(this).prop("checked", true);
-          });
-        } else {
-          return $(".table input[type=checkbox]").each(function() {
-            return $(this).prop("checked", false);
-          });
-        }
-      });
-    });
+    
+    /*$("#dataTable1").dataTable({
+    	      "sPaginationType": "full_numbers",
+    	      aoColumnDefs: [
+    	        {
+    	          bSortable: false,
+    	          aTargets: [0, -1]
+    	        }
+    	      ]
+    	    });
+    	    $('.table').each(function() {
+    	      return $(".table #checkAll").click(function() {
+    	        if ($(".table #checkAll").is(":checked")) {
+    	          return $(".table input[type=checkbox]").each(function() {
+    	            return $(this).prop("checked", true);
+    	          });
+    	        } else {
+    	          return $(".table input[type=checkbox]").each(function() {
+    	            return $(this).prop("checked", false);
+    	          });
+    	        }
+    	      });
+    	    });*/
+    
     /*
     # =============================================================================
     #   jQuery UI Sliders
@@ -1147,3 +1148,31 @@
   });
 
 }).call(this);
+
+
+//数据表格分页js
+function dataTablesOpreation()
+{   //alert("test");
+	$("#dataTable1").dataTable({
+	      "sPaginationType": "full_numbers",
+	      aoColumnDefs: [
+	        {
+	          bSortable: false,
+	          aTargets: [0, -1]
+	        }
+	      ]
+	    });
+	    $('.table').each(function() {
+	      return $(".table #checkAll").click(function() {
+	        if ($(".table #checkAll").is(":checked")) {
+	          return $(".table input[type=checkbox]").each(function() {
+	            return $(this).prop("checked", true);
+	          });
+	        } else {
+	          return $(".table input[type=checkbox]").each(function() {
+	            return $(this).prop("checked", false);
+	          });
+	        }
+	      });
+	    });
+};   
