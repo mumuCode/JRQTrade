@@ -47,7 +47,16 @@
 		<td>${trade.tp}</td>
 		<td>${trade.sl}</td>
 		<td>${trade.profit}</td>
-		<td>${trade.openTime}</td>
+		<td>
+		<c:choose>
+		  <c:when test="${trade.closeTime=='1970-01-01 08:00:00.0'}">
+		     ${trade.openTime}
+		  </c:when>
+		  <c:otherwise>
+		     ${trade.closeTime}
+		  </c:otherwise>
+		</c:choose>
+		</td>
 		<!-- <td class="actions">
 			<div class="action-buttons">
 				<a class="table-actions" href="#"><i

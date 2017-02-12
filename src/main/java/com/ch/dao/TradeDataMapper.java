@@ -6,4 +6,8 @@ import java.util.Map;
 public interface TradeDataMapper {
 
 	List<Map<String,String>> queryTradeDataList(Map queryMap);
+
+	List<Map<String, String>> queryTraderList();
+
+	List<Map<String, String>> querySymbolList();
 }

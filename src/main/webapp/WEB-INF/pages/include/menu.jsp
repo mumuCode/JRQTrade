@@ -125,8 +125,10 @@
 					class="current"> <span aria-hidden="true"
 						class="se7en-charts"></span>金融圈<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a class="current" href="datatables.html">牛人交易数据</a></li>
-					</ul></li>
+						<li><a class="current" href="/trade/trade">牛人交易数据</a></li>
+						<li><a class="current" href="/traderManager/trader">牛人管理</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>

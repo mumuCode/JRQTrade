@@ -65,6 +65,7 @@ public class TradeData {
 	private String traderId; //牛人ID
 	
 	private String traderName;//牛人名称
+	private Integer traderStatus;//牛人状态
 	
 	public String getTrOrder() {
 		return trOrder;
@@ -408,6 +409,11 @@ public class TradeData {
 	public void setTraderName(String traderName) {
 		this.traderName = traderName;
 	}
-	
+	public Integer getTraderStatus() {
+		return traderStatus;
+	}
+	public void setTraderStatus(Integer traderStatus) {
+		this.traderStatus = traderStatus;
+	}
 	
 }

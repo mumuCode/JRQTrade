@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.ch.dao.TraderManagerMapper">
+    
+    <!-- 查询牛人信息 -->
+    <select id="queryTraderManagerList" parameterType="java.util.Map" resultType="com.ch.domain.TradeData">
+        SELECT 
+			uid as traderId,
+			trader_name as traderName,
+			trader_status as traderStatus
+        from TRADER_DATA
+        where 1=1
+        <if test="traderStatus != null and traderStatus != '' ">
+		    and trader_status= #{traderStatus}
+		</if>
+        order by uid Desc
+    </select>
+
+</mapper>

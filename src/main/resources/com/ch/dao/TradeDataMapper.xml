@@ -42,5 +42,30 @@
 		<if test="endTime != null and endTime != '' ">
 		    and FROM_UNIXTIME(a.open_time)  &lt;= str_to_date(#{endTime},'%Y-%m-%d %T')
 		</if>
+		<if test="traderId != null and traderId != '' ">
+		    and a.trader_id= #{traderId}
+		</if>
+		<if test="symbol != null and symbol != '' ">
+		    and a.symbol= #{symbol}
+		</if>
     </sql> 
+    
+    <!-- 查询牛人信息 -->
+    <select id="queryTraderList" parameterType="java.util.Map" resultType="com.ch.domain.TradeData">
+        SELECT 
+			uid as traderId,
+			trader_name as traderName
+        from TRADER_DATA
+        order by uid Desc
+    </select>
+    
+    <!-- 查询货币对信息 -->
+    <select id="querySymbolList" parameterType="java.util.Map" resultType="com.ch.domain.TradeData">
+	    SELECT 
+		DISTINCT			
+		symbol,
+		sym_name as symName
+		from ORDER_DATA
+		GROUP BY symbol,symName
+    </select>
 </mapper>

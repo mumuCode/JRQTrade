@@ -21,4 +21,16 @@ public class TradeDataServiceImpl implements TradeDataService {
 		return tradeDataMapper.queryTradeDataList(queryMap);
 	}
 
+	@Override
+	public List<Map<String, String>> queryTraderList() {
+		
+		return tradeDataMapper.queryTraderList();
+	}
+
+	@Override
+	public List<Map<String, String>> querySymbolList() {
+		
+		return tradeDataMapper.querySymbolList();
+	}
+
 }
