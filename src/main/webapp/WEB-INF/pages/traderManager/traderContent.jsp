@@ -29,11 +29,15 @@
 		</c:if>
 		</td>
 		<td class="actions">
-			<div class="action-buttons">
-				<a class="table-actions" href="#"><i
-					class="icon-eye-open"></i></a><a class="table-actions" href="#"><i
-					class="icon-pencil"></i></a><a class="table-actions" href="#"><i
-					class="icon-trash"></i></a>
+			<div class="action-buttons">			
+				<c:if test="${trader.traderStatus=='0'}">
+				   <a class="table-actions" href="/traderManager/updateTraderStatus?traderId=${trader.traderId}&traderStatus=1">
+				   <i class="icon-eye-open"></i></a>
+				</c:if>
+				<c:if test="${trader.traderStatus=='1'}">
+				   <a class="table-actions" href="/traderManager/updateTraderStatus?traderId=${trader.traderId}&traderStatus=0">
+				   <i class="icon-eye-close"></i></a>
+				</c:if>			
 			</div>
 		</td>
 		</tr>
