@@ -120,9 +120,9 @@
 													    <option value="0">无效</option>
 													</select>
 												</div>
-												<div class="control-label col-md-7"></div>
-												<button class="btn btn-primary" data-toggle="modal" href="#addTrader" ><i class="icon-plus-sign-alt "></i>添加</button>
-												<button class="btn btn-primary" onclick="exportFile()"><i class="icon-file-alt "></i>生成</button>
+												<div class="control-label col-md-6"></div>
+												<button class="btn btn-primary" data-toggle="modal" href="#addTrader" ><i class="icon-plus-sign-alt "></i>添加 牛人</button>
+												<button class="btn btn-primary" onclick="exportFile()"><i class="icon-file-alt "></i>生成配置</button>
 												 
 											</div>
 										</div>

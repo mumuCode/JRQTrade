@@ -1,7 +1,10 @@
 package com.ch.service.impl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -38,17 +41,12 @@ public class TraderManagerServiceImpl implements TraderManagerService {
 	@Override
 	public void writeFile(List<TradeData> traderList) {
 		
+		BufferedWriter bw = null;
+		
 		try {
 			File traderFile = new File("D:/trader.ini");
-			if (traderFile.exists()) {
-				traderFile.delete();
-			}
-			try {
-				traderFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			
+			//获取牛人编号
 			StringBuilder traderMessage = new StringBuilder();
 			for(int i=0;i<traderList.size();i++){
 			    TradeData trader = traderList.get(i);
@@ -56,20 +54,27 @@ public class TraderManagerServiceImpl implements TraderManagerService {
 			    	traderMessage.append(trader.getTraderId()+",");
 			    }else{
 			    	traderMessage.append(trader.getTraderId());
-			    }
-			    
+			    }			    
 			}
 			
-			//写入数据			
-			FileOutputStream fop = new FileOutputStream(traderFile,true);
-			OutputStreamWriter isr = new OutputStreamWriter(fop,"UTF-8"); //指定以UTF-8编码写入
-		    isr.write(traderMessage.toString());	    
-		    isr.flush();
-			isr.close();
+			//写入数据
+			traderMessage.append("\r\n");
+			bw = new BufferedWriter(new FileWriter(traderFile));
+			bw.write(traderMessage.toString());
+			
+		    
 		} catch (Exception e) {
 			throw new RuntimeException("生成牛人配置文件失败："+e);
+		} finally {
+            // 关闭流
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    bw = null;
+                }
+            }
 		}
-		
 	}
 
 }
