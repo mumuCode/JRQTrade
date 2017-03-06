@@ -5,13 +5,14 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.1.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
+
 	<groupId>com.ch</groupId>
-	<artifactId>SpringBootDemo</artifactId>
-	<packaging>war</packaging>
+	<artifactId>JRQ</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootDemo Maven Webapp</name>
+	<name>jrq</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<spring.version>4.3.2.RELEASE</spring.version>
@@ -20,6 +21,7 @@
 		<mybatis.version>3.3.0</mybatis.version>
 		<mysql.version>5.1.38</mysql.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -37,7 +39,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -62,22 +63,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			</dependency>
-			<dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
@@ -90,10 +96,6 @@
 
 	</dependencies>
 
-
-	<!-- Additional lines to be added here... -->
-
-	<!-- (you don't need this if you are using a .RELEASE version) -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -117,53 +119,42 @@
 			<url>http://repo.spring.io/milestone</url>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<build>
-		<finalName>SpringBootDemo</finalName>
+		<finalName>JRQ</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-			</plugin>
-			<!--自动打包发布插件 -->
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-release-plugin</artifactId> 
-				<configuration> <tagBase>svn://192.168.100.27:8080/svn/development/java/credithc-mq/tags</tagBase> 
-				</configuration> </plugin> -->
-			<!-- 解解决maven update project 后版本降低为1.5的bug -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<!-- 单元测试 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-					<includes>
-						<include>**/*Test*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<!-- 绑定到特定的生命周期之后，运行maven-source-pluin 运行目标为jar-no-fork -->
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+        <!-- 检测不到web.xml文件也不要报错 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+        </plugin>
+    </plugins>
+    <resources>  
+            <!-- 打包时将jsp文件拷贝到META-INF目录下-->  
+            <resource>  
+                <!-- 指定resources插件处理哪个目录下的资源文件 -->  
+                <directory>src/main/webapp</directory>  
+                <!--注意此次必须要放在此目录下才能被访问到-->  
+                <targetPath>META-INF/resources</targetPath>  
+                <includes>  
+                    <include>**/**</include>  
+                </includes>  
+            </resource>  
+            <resource>  
+                <directory>src/main/resources</directory>  
+                <includes>  
+                    <include>**/**</include>  
+                </includes>  
+                <filtering>false</filtering>  
+            </resource>  
+        </resources>  
 	</build>
+	
 </project>

@@ -44,7 +44,7 @@ public class TraderManagerServiceImpl implements TraderManagerService {
 		BufferedWriter bw = null;
 		
 		try {
-			File traderFile = new File("D:/trader.ini");
+			File traderFile = new File("/home/shell/trader.ini");
 			
 			//获取牛人编号
 			StringBuilder traderMessage = new StringBuilder();
