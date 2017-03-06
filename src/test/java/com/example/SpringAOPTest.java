@@ -17,6 +17,6 @@ public class SpringAOPTest {
 	@Test public void interceptorTest(){
 		ApplicationContext cxt = new ClassPathXmlApplicationContext("classpath:application-context.xml");
 		LoginController personService = (LoginController)cxt.getBean("loginController");
-		personService.TestLogin();
+		//personService.TestLogin();
 	}
 }

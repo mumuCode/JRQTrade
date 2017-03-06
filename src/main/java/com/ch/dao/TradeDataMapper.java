@@ -3,11 +3,13 @@ package com.ch.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ch.domain.TradeData;
+
 public interface TradeDataMapper {
 
-	List<Map<String,String>> queryTradeDataList(Map queryMap);
+	List<TradeData> queryTradeDataList(Map queryMap);
 
-	List<Map<String, String>> queryTraderList();
+	List<TradeData> queryTraderList();
 
-	List<Map<String, String>> querySymbolList();
+	List<TradeData> querySymbolList();
 }

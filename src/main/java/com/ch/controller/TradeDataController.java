@@ -16,7 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ch.annotation.SystemLogAspect;
+import com.ch.domain.TradeData;
 import com.ch.service.TradeDataService;
 @Controller
 @RequestMapping("trade/")
@@ -30,9 +30,9 @@ public class TradeDataController {
 	@RequestMapping("trade")
 	public String trade(ModelMap modelMap){
 		//查询所有牛人信息
-        List<Map<String,String>> traderList = tradeDataService.queryTraderList();
+        List<TradeData> traderList = tradeDataService.queryTraderList();
         //查询所有货币信息
-        List<Map<String,String>> symbolList = tradeDataService.querySymbolList();
+        List<TradeData> symbolList = tradeDataService.querySymbolList();
         
         modelMap.put("traderList", traderList);
         modelMap.put("symbolList", symbolList);
@@ -68,7 +68,7 @@ public class TradeDataController {
         logger.info("查询交易订单信息请求参数："+queryMap.toString());       
         
 		//查询数据
-        List<Map<String,String>> tradeList = tradeDataService.queryTradeDataList(queryMap);
+        List<TradeData> tradeList = tradeDataService.queryTradeDataList(queryMap);
                 
 		modelMap.put("tradeList", tradeList);
 		return "trade/tradeContent";
