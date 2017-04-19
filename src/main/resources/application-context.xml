@@ -2,11 +2,14 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:task="http://www.springframework.org/schema/task"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    
 	<!-- 引入配置文件  -->
 	<context:property-placeholder location="classpath:config.properties" />
 	
@@ -41,7 +44,7 @@
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ch.dao"/>
+        <property name="basePackage" value="com.ch.jrq.dao"/>
     </bean>
     <!-- 注解解析 -->
 	<context:annotation-config />
@@ -52,9 +55,16 @@
 	<!-- 动态代理 -->
 	<aop:aspectj-autoproxy/>
 	
+	<!-- 多线程定时任务 -->
+    <task:executor id="executor" pool-size="5" />
+    <task:scheduler id="scheduler" pool-size="10" />
+    <task:annotation-driven executor="executor" scheduler="scheduler" />
+	
 	<!--暂时注掉   配置dubbo服务  -->
 	<!-- <import resource="classpath:dubbo-consumer.xml" /> -->
 	<!-- 线程池 -->
 	<import resource="classpath:threadPool.xml" />
+	<!-- 定时任务 -->
+	<!-- <import resource="classpath:jrq-quartz.xml" /> -->
 	
 </beans>

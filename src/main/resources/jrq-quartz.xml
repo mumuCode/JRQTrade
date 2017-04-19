@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-autowire="byName">
+
+    <!-- 金融圈数据爬虫定时任务 -->
+    <bean id="jrqSpriderQuzrtz" class="com.ch.sprider.quzrtz.JRQSpriderQuzrtz"
+        scope="singleton">
+    </bean>
+    
+    <bean id="jrqSpriderBean" class="com.yhpos.posp.core.quartz.JobDetailFactoryBean">
+        <property name="jobQuartzDataSource">
+            <ref bean="jobQuartzDataSource" />
+        </property>
+        <property name="quartzSQL" value="#{sesProps['ds.ses.quartzSQL']}" />
+        <property name="targetObject">
+            <ref bean="xMCMBCPayBackFileQuartz" />
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+    <bean id="xMCMBCPayBackFileTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+        scope="prototype">
+        <property name="jobDetail">
+            <ref bean="xMCMBCPayBackFileBean" />
+        </property>
+        <property name="cronExpression">
+            <!-- 每天10分钟执行一次 -->
+            <value>#{sesProps['quartz.xMCMBCPayBackFileTrigger.cronExpression']}</value>
+        </property>
+    </bean>
+	
+</beans>
