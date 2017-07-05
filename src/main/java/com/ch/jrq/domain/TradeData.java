@@ -3,6 +3,7 @@ package com.ch.jrq.domain;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -66,6 +67,9 @@ public class TradeData {
 	private String closeDescribe;//平仓描述
 	private String content;//订单信息备注
 	
+	private String createTime;//创建时间
+	private String updateTime;//更新时间
+	
 	//无参构造
 	public TradeData(){};
 	
@@ -91,6 +95,11 @@ public class TradeData {
 		this.closeStatus = obj.getString("status");
         this.closeDescribe = obj.getString("order_status");
         this.content = jsonStr;
+	}
+	
+	public Map<String,String> tradeDataToMap(TradeData data){
+		
+		return null;
 	}
 
 	public String getOrderId() {
@@ -469,4 +478,19 @@ public class TradeData {
 		this.traderStatus = traderStatus;
 	}
 
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 }

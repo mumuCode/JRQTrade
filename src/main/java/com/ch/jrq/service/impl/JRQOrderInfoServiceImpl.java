@@ -1,5 +1,6 @@
 package com.ch.jrq.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,35 @@ public class JRQOrderInfoServiceImpl implements JRQOrderInfoService {
 
 	@Override
 	public void addOrderInfoByList(List<TradeData> tradeDataList) {
-		tradeDataMapper.addOrderInfoByList(tradeDataList);
+		if(tradeDataList != null && tradeDataList.size() > 0){
+			
+			for(int i=0;i<tradeDataList.size();i++){
+				
+				TradeData tradeData = tradeDataList.get(i);
+				String orderId = tradeData.getOrderId();
+				String closeStatus = tradeData.getCloseStatus();
+				
+				//判断数据是否重复抓取
+				Map<String,String> tradeMap = new HashMap<String,String>();
+				tradeMap.put("orderId", orderId);
+				TradeData data = tradeDataMapper.queryTradeData(tradeMap);
+				
+				if(data != null){
+					//判断订单是否有变化
+					if(!data.getCloseStatus().equals(closeStatus)){//0:持有 3:平仓
+						//更新订单数据
+						tradeDataMapper.updateOrderInfo(tradeData);
+					}else{
+						continue;
+					}
+				}else{
+					//新增订单数据
+					tradeDataMapper.addOrderInfo(tradeData);
+				}				
+				
+			}
+			
+		}
 	}
 
 }

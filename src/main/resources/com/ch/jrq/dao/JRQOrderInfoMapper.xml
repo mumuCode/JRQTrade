@@ -41,6 +41,9 @@
 		<if test="symbol != null and symbol != '' ">
 		    and a.symbol= #{symbol}
 		</if>
+		<if test="orderId != null and orderId != '' ">
+		    and a.order_id= #{orderId}
+		</if>
     </sql> 
     
     <!-- 查询货币对信息 -->
@@ -53,7 +56,7 @@
 			symbol
     </select>
     
-    <!-- 新增交易订单数据 -->    
+    <!-- 批量新增交易订单数据 -->    
     <insert id="addOrderInfoByList" parameterType="java.util.List">
 		INSERT INTO jrq_order_info (
 		order_id,
@@ -102,4 +105,145 @@
 	) a
     </insert>
     
+    <!-- 查询单条交易订单数据 -->
+    <select id="queryTradeData" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
+		SELECT
+			order_id "orderId",
+			trader_id "traderId",
+			trader_name "traderName",
+			symbol,
+			open_time "openTime",
+			close_time "closeTime",
+			open_price "openPrice",
+			close_price "closePrice",
+			volume,
+			stop_loss "stopLoss",
+			take_profit "takeProfit",
+			profit,
+			open_status "openStatus",
+			open_describe "openDescribe",
+			close_status "closeStatus",
+			close_describe "closeDescribe"
+		FROM
+			jrq_order_info a
+        <where>
+        <include refid="whereConditionsForOrder"></include>
+        </where>
+    </select>
+    
+    <!-- 新增单条交易订单数据 -->
+    <insert id="addOrderInfo">
+		INSERT INTO jrq_order_info (
+			order_id,
+			trader_id,
+			trader_name,
+			symbol,
+			open_time,
+			close_time,
+			open_price,
+			close_price,
+			volume,
+			stop_loss,
+			take_profit,
+			profit,
+			open_status,
+			open_describe,
+			close_status,
+			close_describe,
+			content,
+			create_time
+		) SELECT
+			#{tradeData.orderId,jdbcType=VARCHAR},
+			#{tradeData.traderId,jdbcType=VARCHAR},
+			#{tradeData.traderName,jdbcType=VARCHAR},
+			#{tradeData.symbol,jdbcType=VARCHAR},
+			#{tradeData.openTime,jdbcType=VARCHAR},
+			#{tradeData.closeTime,jdbcType=VARCHAR},
+			#{tradeData.openPrice,jdbcType=VARCHAR},
+			#{tradeData.closePrice,jdbcType=VARCHAR},
+			#{tradeData.volume,jdbcType=VARCHAR},
+			#{tradeData.stopLoss,jdbcType=VARCHAR},
+			#{tradeData.takeProfit,jdbcType=VARCHAR},
+			#{tradeData.profit,jdbcType=VARCHAR},
+			#{tradeData.openStatus,jdbcType=VARCHAR},
+			#{tradeData.openDescribe,jdbcType=VARCHAR},
+			#{tradeData.closeStatus,jdbcType=VARCHAR},
+			#{tradeData.closeDescribe,jdbcType=VARCHAR},
+			#{tradeData.content,jdbcType=VARCHAR},
+			now()
+		FROM
+			DUAL
+    </insert>
+    
+    <!-- 更新单条交易订单数据 -->
+    <update id="updateOrderInfo">
+		UPDATE jrq_order_info a
+			SET 
+			trader_id = #{tradeData.traderId},
+			trader_name = #{tradeData.traderName},
+			symbol = #{tradeData.symbol},
+			open_time = #{tradeData.openTime},
+			close_time = #{tradeData.closeTime},
+			open_price = #{tradeData.openPrice},
+			close_price = #{tradeData.closePrice},
+			volume = #{tradeData.volume},
+			stop_loss = #{tradeData.stopLoss},
+			take_profit = #{tradeData.takeProfit},
+			profit = #{tradeData.profit},
+			open_status = #{tradeData.openStatus},
+			open_describe = #{tradeData.openDescribe},
+			close_status = #{tradeData.closeStatus},
+			close_describe = #{tradeData.closeDescribe},
+			content = #{tradeData.content},
+			update_time = now()
+		WHERE
+			order_id = #{tradeData.orderId}   
+    </update>
+    
+    <!-- 更新单条交易订单数据
+    <update id="updateOrderInfo">
+		UPDATE jrq_order_info a
+		SET (
+			order_id,
+			trader_id,
+			trader_name,
+			symbol,
+			open_time,
+			close_time,
+			open_price,
+			close_price,
+			volume,
+			stop_loss,
+			take_profit,
+			profit,
+			open_status,
+			open_describe,
+			close_status,
+			close_describe,
+			content,
+			update_time
+		) = (
+			SELECT
+				#{tradeData.orderId,jdbcType=VARCHAR},
+				#{tradeData.traderId,jdbcType=VARCHAR},
+				#{tradeData.traderName,jdbcType=VARCHAR},
+				#{tradeData.symbol,jdbcType=VARCHAR},
+				#{tradeData.openTime,jdbcType=VARCHAR},
+				#{tradeData.closeTime,jdbcType=VARCHAR},
+				#{tradeData.openPrice,jdbcType=VARCHAR},
+				#{tradeData.closePrice,jdbcType=VARCHAR},
+				#{tradeData.volume,jdbcType=VARCHAR},
+				#{tradeData.stopLoss,jdbcType=VARCHAR},
+				#{tradeData.takeProfit,jdbcType=VARCHAR},
+				#{tradeData.profit,jdbcType=VARCHAR},
+				#{tradeData.openStatus,jdbcType=VARCHAR},
+				#{tradeData.openDescribe,jdbcType=VARCHAR},
+				#{tradeData.closeStatus,jdbcType=VARCHAR},
+				#{tradeData.closeDescribe,jdbcType=VARCHAR},
+				#{tradeData.content,jdbcType=VARCHAR},
+				now()
+			FROM
+				DUAL
+		)        
+    </update> -->
 </mapper>
