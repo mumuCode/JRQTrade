@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ch.jrq.dao.JRQTraderInfoMapper">
+    
+    <!-- 查询牛人信息 -->
+    <select id="queryTraderList" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
+        select 
+			trader_id as traderId,
+			trader_name as traderName,
+			trader_status as traderStatus
+        from jrq_trader_info
+        where 1=1
+        <if test="traderStatus != null and traderStatus != '' ">
+		    and trader_status= #{traderStatus}
+		</if>
+        order by trader_status Desc,CAST(trader_id AS SIGNED) Desc
+    </select>
+    
+    <!-- 添加牛人信息 -->
+    <insert id="addTrader" parameterType="java.util.Map">
+        insert jrq_trader_info (
+			trader_id,
+			trader_name,
+			trader_status,
+		    create_time
+		    )
+		    VALUES
+			(
+			#{traderId},   
+		    #{traderName},
+		    '01',
+		    now()
+		    )
+    </insert>
+
+    <!-- 变更牛人状态 -->
+    <update id="updateTraderStatus" parameterType="java.util.Map">
+        update jrq_trader_info
+		set 
+		trader_status = #{traderStatus},
+		update_time = now()
+		where trader_id = #{traderId}
+    </update>
+</mapper>

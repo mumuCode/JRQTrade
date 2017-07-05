@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="com.ch.jrq.dao.JRQOrderInfoMapper">
+    
+    <!-- 查询交易数据 -->
+    <select id="queryTradeDataList" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
+			 SELECT
+				a.trader_id AS traderId,
+				a.trader_name AS traderName,
+				a.symbol AS symbol,
+				a.status status,
+				a.order_status orderStatus,
+				a.open_price AS openPrice,
+				a.close_price AS closePrice,
+				a.take_profit AS tp,
+				a.stop_loss AS sl,
+				a.profit AS profit,
+				FROM_UNIXTIME(a.open_time) AS openTime,
+				FROM_UNIXTIME(a.close_time) AS closeTime
+			FROM
+				jrq_order_info a
+            <where>
+            <include refid="whereConditionsForOrder"></include>
+            </where>
+			ORDER BY  state ASC,open_time DESC
+    </select>
+    
+    <sql id="whereConditionsForOrder"> 
+        <if test="startTime != null and startTime != '' ">
+			and FROM_UNIXTIME(a.open_time) &gt;= str_to_date(#{startTime},'%Y-%m-%d %T')
+		</if>
+		<if test="endTime != null and endTime != '' ">
+		    and FROM_UNIXTIME(a.open_time)  &lt;= str_to_date(#{endTime},'%Y-%m-%d %T')
+		</if>
+		<if test="traderId != null and traderId != '' ">
+		    and a.trader_id= #{traderId}
+		</if>
+		<if test="symbol != null and symbol != '' ">
+		    and a.symbol= #{symbol}
+		</if>
+    </sql> 
+    
+    <!-- 查询货币对信息 -->
+    <select id="querySymbolList" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
+		SELECT DISTINCT
+			symbol
+		FROM
+			jrq_order_info
+		GROUP BY
+			symbol
+    </select>
+    
+    <!-- 新增交易订单数据 -->    
+    <insert id="addOrderInfoByList" parameterType="java.util.List">
+		INSERT INTO jrq_order_info (
+		order_id,
+		trader_id,
+		trader_name,
+		symbol,
+		open_time,
+		close_time,
+		open_price,
+		close_price,
+		volume,
+		stop_loss,
+		take_profit,
+		profit,
+		open_status,
+		open_describe,
+		close_status,
+		close_describe,
+		content,
+		create_time
+	)
+	SELECT a.*
+	FROM(
+	<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		SELECT
+		#{item.orderId,jdbcType=VARCHAR} order_id,
+		#{item.traderId,jdbcType=VARCHAR} trader_id,
+		#{item.traderName,jdbcType=VARCHAR} trader_name,
+		#{item.symbol,jdbcType=VARCHAR} symbol,
+		#{item.openTime,jdbcType=VARCHAR} open_time,
+		#{item.closeTime,jdbcType=VARCHAR} close_time,
+		#{item.openPrice,jdbcType=VARCHAR} open_price,
+		#{item.closePrice,jdbcType=VARCHAR} close_price,
+		#{item.volume,jdbcType=VARCHAR} volume,
+		#{item.stopLoss,jdbcType=VARCHAR} stop_loss,
+		#{item.takeProfit,jdbcType=VARCHAR} take_profit,
+		#{item.profit,jdbcType=VARCHAR} profit,
+		#{item.openStatus,jdbcType=VARCHAR} open_status,
+		#{item.openDescribe,jdbcType=VARCHAR} open_describe,
+		#{item.closeStatus,jdbcType=VARCHAR} close_status,
+		#{item.closeDescribe,jdbcType=VARCHAR} close_describe,
+		#{item.content,jdbcType=VARCHAR} content,
+		now()
+		FROM dual
+	</foreach>
+	) a
+    </insert>
+    
+</mapper>

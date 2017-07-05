@@ -10,13 +10,13 @@ import com.ch.jrq.controller.LoginController;
 
 public class SpringAOPTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@Test public void interceptorTest(){
-		ApplicationContext cxt = new ClassPathXmlApplicationContext("classpath:application-context.xml");
-		LoginController personService = (LoginController)cxt.getBean("loginController");
-		//personService.TestLogin();
-	}
+//	@BeforeClass
+//	public static void setUpBeforeClass() throws Exception {
+//	}
+//
+//	@Test public void interceptorTest(){
+//		ApplicationContext cxt = new ClassPathXmlApplicationContext("classpath:application-context.xml");
+//		LoginController personService = (LoginController)cxt.getBean("loginController");
+//		//personService.TestLogin();
+//	}
 }

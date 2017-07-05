@@ -58,7 +58,7 @@ function login(){
             dataType: "json",
             success: function (data) {
                 if (data.status == 0) {
-                	window.location = "/trade/trade";         	 
+                	window.location = "/trader/trader";         	 
                 }else if (data.status == 1) {
                 	alert("用户名或者密码错误！");               	
                 }else if (data.status == 2) {
