@@ -64,6 +64,7 @@
              }else if (data.status == 1) {
             	 alert(data.message);
             	 $("#closeAddTrader").click();
+            	 traderdata();
              }
          }
 	 });

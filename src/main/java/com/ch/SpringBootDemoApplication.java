@@ -25,5 +25,4 @@ public class SpringBootDemoApplication extends SpringBootServletInitializer{
 		
 	}
 	
-
 }

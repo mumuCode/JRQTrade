@@ -82,19 +82,33 @@ public class TradeData {
 		this.traderId = traderId;
 		this.traderName = traderName;
 		this.symbol = obj.getString("symbol");
-		this.openTime = sf.format(new Date(Long.valueOf(obj.getString("open_time")+"000")));
-		this.closeTime = sf.format(new Date(Long.valueOf(obj.getString("close_time")+"000")));
-		this.openPrice = obj.getString("open_price");
-		this.closePrice = obj.getString("close_price");
-		this.volume = new BigDecimal(obj.getString("volume").toString()).divide(new BigDecimal("100")).toString();//原值／杠杆值
-		this.stopLoss = obj.getString("stop_loss");
-		this.takeProfit = obj.getString("take_profit");
-		this.profit = new BigDecimal(obj.getString("profit")).add(new BigDecimal(obj.getString("swap"))).toString();//盈利值+库存费用
+		this.openTime = sf.format(new Date(Long.valueOf(obj
+				.getString("open_time") + "000")));
+		this.closeTime = sf.format(new Date(Long.valueOf(obj
+				.getString("close_time") + "000")));
+		this.openPrice = new BigDecimal(obj.getString("open_price").toString())
+				.setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue() + "";
+		this.closePrice = new BigDecimal(obj.getString("close_price")
+				.toString()).setScale(5, BigDecimal.ROUND_HALF_UP)
+				.doubleValue()
+				+ "";
+		this.volume = new BigDecimal(obj.getString("volume").toString())
+				.divide(new BigDecimal("100")).toString();// 原值／杠杆值
+		this.stopLoss = new BigDecimal(obj.getString("stop_loss").toString())
+				.setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue() + "";
+		this.takeProfit = new BigDecimal(obj.getString("take_profit")
+				.toString()).setScale(5, BigDecimal.ROUND_HALF_UP)
+				.doubleValue()
+				+ "";
+		this.profit = new BigDecimal(obj.getString("profit"))
+				.add(new BigDecimal(obj.getString("swap")))
+				.setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue()
+				+ "";// 盈利值+库存费用
 		this.openStatus = obj.getString("trade_cmd");
 		this.openDescribe = obj.getString("order_status2");
 		this.closeStatus = obj.getString("status");
-        this.closeDescribe = obj.getString("order_status");
-        this.content = jsonStr;
+		this.closeDescribe = obj.getString("order_status");
+		this.content = jsonStr;
 	}
 	
 	public Map<String,String> tradeDataToMap(TradeData data){

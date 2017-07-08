@@ -47,7 +47,7 @@ public class JRQSpriderScheduled {
 	@Resource(name = "threadPoolTaskExecutor")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-	@Scheduled(cron="0 22 23 * * ?") 
+	@Scheduled(cron="0 0/5 * * * ?") 
     public void executeSpriderTask() {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         logger.info(sf.format(new Date())+" 开始执行定时任务");	

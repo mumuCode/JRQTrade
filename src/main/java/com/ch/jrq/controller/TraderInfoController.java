@@ -61,7 +61,6 @@ public class TraderInfoController {
         try {
         	jrqTraderInfoService.addTrader(map);
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.error("添加牛人信息失败："+e);
 			statusJson.setStatus(0);
 			statusJson.setMessage("添加牛人失败！");

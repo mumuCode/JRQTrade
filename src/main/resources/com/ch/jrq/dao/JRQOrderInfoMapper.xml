@@ -7,33 +7,35 @@
     
     <!-- 查询交易数据 -->
     <select id="queryTradeDataList" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
-			 SELECT
-				a.trader_id AS traderId,
+			SELECT
 				a.trader_name AS traderName,
 				a.symbol AS symbol,
-				a.status status,
-				a.order_status orderStatus,
+				a.open_time AS openTime,
+				a.close_time AS closeTime,
 				a.open_price AS openPrice,
 				a.close_price AS closePrice,
 				a.take_profit AS tp,
 				a.stop_loss AS sl,
 				a.profit AS profit,
-				FROM_UNIXTIME(a.open_time) AS openTime,
-				FROM_UNIXTIME(a.close_time) AS closeTime
+				a.volume AS volume,
+				a.open_status AS openStatus,
+				a.close_status AS closeStatus,
+				a.open_describe AS openDescribe,
+				a.close_describe AS closeDescribe
 			FROM
 				jrq_order_info a
             <where>
             <include refid="whereConditionsForOrder"></include>
             </where>
-			ORDER BY  state ASC,open_time DESC
+			ORDER BY  close_status ASC,open_time DESC
     </select>
     
     <sql id="whereConditionsForOrder"> 
         <if test="startTime != null and startTime != '' ">
-			and FROM_UNIXTIME(a.open_time) &gt;= str_to_date(#{startTime},'%Y-%m-%d %T')
+			and str_to_date(a.open_time,'%Y-%m-%d %T') &gt;= str_to_date(#{startTime},'%Y-%m-%d %T')
 		</if>
 		<if test="endTime != null and endTime != '' ">
-		    and FROM_UNIXTIME(a.open_time)  &lt;= str_to_date(#{endTime},'%Y-%m-%d %T')
+		    and str_to_date(a.open_time,'%Y-%m-%d %T')  &lt;= str_to_date(#{endTime},'%Y-%m-%d %T')
 		</if>
 		<if test="traderId != null and traderId != '' ">
 		    and a.trader_id= #{traderId}
@@ -200,50 +202,4 @@
 			order_id = #{tradeData.orderId}   
     </update>
     
-    <!-- 更新单条交易订单数据
-    <update id="updateOrderInfo">
-		UPDATE jrq_order_info a
-		SET (
-			order_id,
-			trader_id,
-			trader_name,
-			symbol,
-			open_time,
-			close_time,
-			open_price,
-			close_price,
-			volume,
-			stop_loss,
-			take_profit,
-			profit,
-			open_status,
-			open_describe,
-			close_status,
-			close_describe,
-			content,
-			update_time
-		) = (
-			SELECT
-				#{tradeData.orderId,jdbcType=VARCHAR},
-				#{tradeData.traderId,jdbcType=VARCHAR},
-				#{tradeData.traderName,jdbcType=VARCHAR},
-				#{tradeData.symbol,jdbcType=VARCHAR},
-				#{tradeData.openTime,jdbcType=VARCHAR},
-				#{tradeData.closeTime,jdbcType=VARCHAR},
-				#{tradeData.openPrice,jdbcType=VARCHAR},
-				#{tradeData.closePrice,jdbcType=VARCHAR},
-				#{tradeData.volume,jdbcType=VARCHAR},
-				#{tradeData.stopLoss,jdbcType=VARCHAR},
-				#{tradeData.takeProfit,jdbcType=VARCHAR},
-				#{tradeData.profit,jdbcType=VARCHAR},
-				#{tradeData.openStatus,jdbcType=VARCHAR},
-				#{tradeData.openDescribe,jdbcType=VARCHAR},
-				#{tradeData.closeStatus,jdbcType=VARCHAR},
-				#{tradeData.closeDescribe,jdbcType=VARCHAR},
-				#{tradeData.content,jdbcType=VARCHAR},
-				now()
-			FROM
-				DUAL
-		)        
-    </update> -->
 </mapper>

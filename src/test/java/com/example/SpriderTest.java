@@ -1,5 +1,6 @@
 package com.example;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class SpriderTest {
     //#交易历史 https://copyfx.jrq.com/Widget/__user_published?uid=5215696&type=user_trade_history&page=1&_=1487135059537
 	
     public static void main(String[] args) {
-		System.out.println(new Date().getTime());
+		System.out.println(new BigDecimal("1.8162199999999999").setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue()+"");
 	}
     
     
