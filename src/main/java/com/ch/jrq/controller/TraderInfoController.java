@@ -55,7 +55,15 @@ public class TraderInfoController {
 		
 		map.put("traderName", traderName);
 		map.put("traderId", traderId);
-        logger.info("添加牛人信息请求参数："+map.toString());       
+        logger.info("添加牛人信息请求参数："+map.toString());
+        
+        //查询牛人是否已添加
+        TradeData tradeData = jrqTraderInfoService.queryTrader(map);
+        if(tradeData != null){
+        	statusJson.setStatus(0);
+			statusJson.setMessage("添加牛人失败，牛人已存在！");
+			return statusJson;
+        }
         
 		//添加牛人
         try {

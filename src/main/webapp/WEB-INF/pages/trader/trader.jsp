@@ -63,11 +63,18 @@
              	 alert(data.message);       	 
              }else if (data.status == 1) {
             	 alert(data.message);
-            	 $("#closeAddTrader").click();
+            	 clickCloseAddTrader();
             	 traderdata();
              }
          }
 	 });
+ }
+ 
+ //点击关闭添加牛人页面
+ function clickCloseAddTrader(){
+	 $("#closeAddTrader").click();
+	 $("#traderName").val("");
+	 $("#traderId").val("");
  }
 
  //生成牛人名单文件
@@ -167,7 +174,8 @@
 		      </div>
            </div>
            <div class="modal-footer">
-             <button class="btn btn-primary" type="button" onclick="addTrader()">保存</button><button class="btn btn-default-outline" data-dismiss="modal" type="button" id="closeAddTrader">关闭</button>
+             <button class="btn btn-primary" type="button" onclick="addTrader()">保存</button>
+             <button class="btn btn-default-outline" data-dismiss="modal" type="button" id="closeAddTrader">关闭</button>
            </div>
          </div>
        </div>

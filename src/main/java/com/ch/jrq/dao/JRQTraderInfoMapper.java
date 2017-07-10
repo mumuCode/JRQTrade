@@ -13,6 +13,6 @@ public interface JRQTraderInfoMapper {
 
 	void updateTraderStatus(Map<String, String> map);
 
-	
+	TradeData queryTrader(Map<String, String> map);
 
 }

@@ -15,4 +15,6 @@ public interface JRQTraderInfoService {
 
 	public void writeFile(List<TradeData> traderList);
 
+	public TradeData queryTrader(Map<String, String> map);
+
 }

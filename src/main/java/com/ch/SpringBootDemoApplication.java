@@ -19,6 +19,7 @@ public class SpringBootDemoApplication extends SpringBootServletInitializer{
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return  application.sources(SpringBootDemoApplication.class);
 	}
+	
 	public static void main(String[] args) {
 		
 		SpringApplication.run(SpringBootDemoApplication.class, args);

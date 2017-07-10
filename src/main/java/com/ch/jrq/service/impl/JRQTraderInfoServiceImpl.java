@@ -81,4 +81,9 @@ public class JRQTraderInfoServiceImpl implements JRQTraderInfoService {
 		}
 	}
 
+	@Override
+	public TradeData queryTrader(Map<String, String> map) {
+		return jrqTraderInfoMapper.queryTrader(map);
+	}
+
 }

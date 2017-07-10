@@ -47,13 +47,13 @@ public class JRQSpriderScheduled {
 	@Resource(name = "threadPoolTaskExecutor")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-	@Scheduled(cron="0 0/5 * * * ?") 
+	@Scheduled(cron="0 0/5 * ? * MON-SAT") 
     public void executeSpriderTask() {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         logger.info(sf.format(new Date())+" 开始执行定时任务");	
         
 		final ConcurrentLinkedQueue<TradeData> queue = new ConcurrentLinkedQueue<TradeData>();//数据队列
-		Integer threadCount = 4;//线程数
+		Integer threadCount = 8;//线程数
 		final CountDownLatch latch = new CountDownLatch(threadCount);//线程等待
 		
 		//查询有效牛人信息

@@ -41,4 +41,18 @@
 		update_time = now()
 		where trader_id = #{traderId}
     </update>
+    
+    <!-- 查询单个牛人信息 -->
+    <select id="queryTrader" parameterType="java.util.Map" resultType="com.ch.jrq.domain.TradeData">
+        select 
+			trader_id as traderId,
+			trader_name as traderName,
+			trader_status as traderStatus
+        from jrq_trader_info
+        where 1=1
+        <if test="traderId != null and traderId != '' ">
+		    and trader_id= #{traderId}
+		</if>
+    </select>
+    
 </mapper>
