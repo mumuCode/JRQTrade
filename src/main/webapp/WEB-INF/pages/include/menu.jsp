@@ -4,8 +4,8 @@
 <div class="container-fluid top-bar">
         <div class="pull-right">
             <ul class="nav navbar-nav pull-right">
-                <li class="dropdown notifications hidden-xs">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span aria-hidden="true" class="se7en-flag"></span>
+                <!--  <li class="dropdown notifications hidden-xs">
+                   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span aria-hidden="true" class="se7en-flag"></span>
                         <div class="sr-only">
                             通知
                         </div>
@@ -51,8 +51,8 @@
 
                         </li>
                     </ul>
-                </li>
-                <li class="dropdown messages hidden-xs">
+                </li> -->
+                <!-- <li class="dropdown messages hidden-xs">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span aria-hidden="true" class="se7en-envelope"></span>
                         <div class="sr-only">
                             消息
@@ -72,7 +72,7 @@
                             <img width="34" height="34" src="../../images/avatar-male2.png" />Se7en是一款不错的主题。</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="dropdown settings hidden-xs">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span aria-hidden="true" class="se7en-gear"></span>
                         <div class="sr-only">
@@ -100,23 +100,23 @@
                 <li class="dropdown user hidden-xs"><a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <img width="34" height="34" src="../../images/avatar-male.jpg" />管理员<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">
+                        <!-- <li><a href="#">
                             <i class="icon-user"></i>我的账户</a>
                         </li>
                         <li><a href="#">
                             <i class="icon-gear"></i>账户设置</a>
-                        </li>
-                        <li><a href="login1.html">
+                        </li> -->
+                        <li><a href="/login/exit">
                             <i class="icon-signout"></i>退出</a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="index.html">se7en</a>
+       <!--  <button class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="logo" href="index.html">se7en</a>
         <form class="navbar-form form-inline col-lg-2 hidden-xs">
             <input class="form-control" placeholder="搜索" type="text">
-        </form>
+        </form> -->
     </div>
 	<div class="container-fluid main-nav clearfix">
 		<div class="nav-collapse">

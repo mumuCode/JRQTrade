@@ -8,10 +8,10 @@
 				src="../../images/jrq-logo.png" /></a>
 			<form action="">
 				<div class="form-group">
-					<input id="username" class="form-control" placeholder="用户名" type="text">
+					<input id="username" type="email" class="form-control" placeholder="用户名" type="text">
 				</div>
 				<div class="form-group">
-					<input id="password" class="form-control" placeholder="密码" type="text">
+					<input id="password" type="password" class="form-control" placeholder="密码" type="text">
 					<!--  <input	type="submit" value="&#xf054;">-->
 				</div>
 				<div class="form-options clearfix">
